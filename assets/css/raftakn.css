@@ -1,0 +1,128 @@
+/* Raftákn additions on top of the Rio system (main.css): sector finder, project filters, project page,
+   staff grid, offices, footer credit. Same tokens, same easing. */
+
+/* their logo is a wide mark (2.95:1): size by width, keep the nav light */
+.logo.is-nav { width: 9.5rem; }
+.logo.is-footer { width: min(26rem, 100%); }
+@media (max-width: 767px) { .logo.is-nav { width: 7.75rem; } }
+
+/* Sindri 2026-11-07: nothing hides behind hover. Card names, details and persona text are always on screen. */
+.card_grad { opacity: 1; }
+.card_line > span, .card_name > span { transform: none; }
+.persona_para { grid-template-rows: 1fr; }
+.persona_title > span { text-shadow: none; }
+
+/* cards without a photo on their site: navy tile with their logo */
+.card_noimg { display: grid; place-items: center; background: var(--green-800); color: rgb(255 254 252 / .22); }
+.logo.is-card { width: 46%; }
+
+/* ---------- landing: sector finder ---------- */
+.finder.is-sectors { gap: 1rem; }
+.sectors { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--l100); border: 1px solid var(--l100); }
+.sector { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: .5rem; min-height: 3.25rem; padding: .5rem .5rem .5rem .75rem; background: #fff; color: var(--green-800); font-weight: 500; font-size: .86rem; line-height: 1.2; transition: background-color .3s var(--ease-out), color .3s var(--ease-out); }
+.sector_l { white-space: nowrap; }
+.sector_n { font-size: .78rem; color: var(--body); font-variant-numeric: tabular-nums; }
+.sector_i { width: 1rem; height: 1rem; color: var(--green-500); }
+.sector_i svg { width: 100%; height: 100%; transition: transform .45s var(--ease-io); }
+@media (hover: hover) and (pointer: fine) {
+  .sector:hover { background: var(--green-500); color: var(--paper); }
+  .sector:hover .sector_n, .sector:hover .sector_i { color: var(--yellow); }
+  .sector:hover .sector_i svg { transform: translate(15%, -15%); }
+}
+.sector:focus-visible { outline: 2px solid var(--green-500); outline-offset: -2px; }
+a.finder_go { text-decoration: none; }
+
+/* ---------- project filters ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2.5rem; }
+.filter { display: inline-flex; align-items: center; gap: .55rem; min-height: 2.75rem; padding: 0 1rem; border: 1px solid var(--border); color: var(--heading); font: 500 .95rem/1 var(--f-body); text-transform: uppercase; transition: background-color .3s var(--ease-out), color .3s var(--ease-out), border-color .3s; }
+.filter_n { font-size: .78rem; color: var(--body); font-variant-numeric: tabular-nums; transition: color .3s; }
+.filter.is-active { background: var(--green-500); border-color: var(--green-500); color: var(--paper); }
+.filter.is-active .filter_n { color: var(--yellow); }
+@media (hover: hover) and (pointer: fine) { .filter:not(.is-active):hover { border-color: var(--green-500); } }
+.filters_status { margin-top: 1rem; font-size: .9rem; color: var(--body); min-height: 1.35rem; }
+[data-cats][hidden] { display: none !important; }
+.list_year { margin-left: .75em; font-size: .55em; vertical-align: middle; color: var(--body); font-family: var(--f-body); }
+@media (max-width: 767px) { .filters { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--margin) * -1); padding-inline: var(--margin); scrollbar-width: none; } .filters::-webkit-scrollbar { display: none; } .filter { flex: none; } }
+
+/* ---------- project page (Rio's unused project hero: photo left, brand panel right) ---------- */
+.proj_hero { position: relative; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); min-height: 100svh; background: var(--green-800); }
+.proj_media { position: relative; overflow: clip; min-height: 66svh; }
+.proj_media .hero_scale { position: absolute; inset: 0; }
+.proj_noimg { position: absolute; inset: 0; display: grid; place-items: center; color: rgb(255 254 252 / .18); }
+.proj_panel { display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; padding: calc(var(--nav-h) + 1.5rem) var(--margin) 3rem 3rem; background: var(--bg); color: var(--text); }
+.proj_back { display: inline-flex; align-items: center; gap: .6rem; width: fit-content; min-height: 2.75rem; color: var(--accent); text-transform: uppercase; font-size: .95rem; }
+.proj_back svg { width: 1.1rem; height: 1.1rem; transform: rotate(-135deg); transition: transform .45s var(--ease-io); }
+@media (hover: hover) and (pointer: fine) { .proj_back:hover svg { transform: rotate(-135deg) translate(15%, -15%); } }
+.proj_titles { display: flex; flex-direction: column; gap: 1rem; }
+.proj_cat { color: var(--accent); }
+.proj_h1 { color: var(--paper); overflow-wrap: break-word; hyphens: manual; font-size: min(var(--fs-h1), 3.4vw); }
+.proj_sub { color: var(--green-300); }
+.proj_facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.proj_facts dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .02em; color: var(--green-300); margin-bottom: .3rem; }
+.proj_facts dd { color: var(--paper); font-size: var(--fs-large); line-height: 1.4; }
+.proj_grid { align-items: start; }
+.proj_text { grid-column: 1 / 8; display: flex; flex-direction: column; gap: 2rem; }
+.proj_intro { color: var(--heading); font: 400 clamp(1.25rem, 1.1rem + .6vw, 1.6rem)/1.45 var(--f-body); text-transform: none; max-width: 52ch; }
+.proj_rich { display: flex; flex-direction: column; gap: 1rem; max-width: 62ch; color: var(--body); font-size: var(--fs-large); line-height: 1.65; }
+.proj_credit { font-size: .85rem; color: var(--l500); }
+.proj_people { grid-column: 9 / 13; position: sticky; top: calc(var(--nav-h) + 1rem); }
+.proj_people ul { display: flex; flex-direction: column; }
+.proj_people li { display: flex; flex-direction: column; gap: .15rem; padding: 1rem 0; border-top: 1px solid var(--l100); }
+.proj_pname { color: var(--heading); font-weight: 500; }
+.proj_prole { font-size: .9rem; color: var(--body); }
+.proj_people a { font-size: .9rem; color: var(--green-500); width: fit-content; padding: .35rem 0; }
+.proj_gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+.proj_gallery.is-1 { grid-template-columns: minmax(0, 1fr); }
+.proj_gallery.is-3 .proj_fig:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 8; }
+.proj_fig { position: relative; overflow: clip; aspect-ratio: 4 / 3; background: var(--l100); }
+.proj_fig img { width: 100%; height: 100%; object-fit: cover; }
+.proj_nav { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gutter); }
+.proj_next { display: flex; flex-direction: column; gap: .5rem; padding: 1.75rem 0; border-top: 1px solid var(--green-500); color: var(--heading); text-align: right; align-items: flex-end; }
+.proj_next.is-prev { text-align: left; align-items: flex-start; }
+.proj_next_l { font-size: .8rem; text-transform: uppercase; color: var(--body); }
+@media (hover: hover) and (pointer: fine) { .proj_next:hover .h4 { color: var(--green-500); } }
+@media (max-width: 991px) {
+  .proj_hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .proj_media { min-height: 56svh; }
+  .proj_panel { padding: 2.5rem var(--margin); }
+  .proj_h1 { font-size: var(--fs-h1); }
+  .proj_text { grid-column: 1 / -1; }
+  .proj_people { grid-column: 1 / -1; position: static; margin-top: 3rem; }
+}
+@media (max-width: 767px) {
+  .proj_media { min-height: 48svh; }
+  .proj_h1 { font-size: 9vw; }
+  .sectors { grid-template-columns: minmax(0, 1fr); }
+  .sector { min-height: 2.75rem; font-size: .92rem; }
+  .proj_gallery, .proj_nav { grid-template-columns: minmax(0, 1fr); }
+  .proj_gallery.is-3 .proj_fig:first-child { aspect-ratio: 4 / 3; }
+  .proj_next, .proj_next.is-prev { text-align: left; align-items: flex-start; }
+}
+
+/* ---------- people ---------- */
+.team_head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem 2rem; flex-wrap: wrap; }
+.staff_grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3rem var(--gutter); }
+.staff { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.staff_frame { position: relative; aspect-ratio: 4 / 5; overflow: clip; background: var(--green-500); margin-bottom: .75rem; }
+.staff_img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.staff_initials { position: absolute; inset: 0; display: grid; place-items: center; font: 700 clamp(2rem, 4vw, 3.5rem)/1 var(--f-display); color: var(--yellow); }
+.staff_name { color: var(--heading); }
+.staff_role { font-size: .92rem; color: var(--body); line-height: 1.4; }
+.staff_contact { display: flex; flex-direction: column; margin-top: .25rem; }
+.staff_contact a { font-size: .88rem; color: var(--green-500); padding: .3rem 0; overflow-wrap: anywhere; width: fit-content; font-variant-numeric: tabular-nums; }
+@media (max-width: 1239px) { .staff_grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 991px) { .staff_grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .staff_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem .75rem; } }
+
+/* ---------- contact page offices ---------- */
+.offices { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; color: var(--paper); }
+.office { display: flex; flex-direction: column; gap: .5rem; }
+.office_h { font: 700 var(--fs-h6)/1.2 var(--f-display); text-transform: uppercase; color: var(--yellow); }
+.office a { display: inline-flex; align-items: center; gap: .55rem; min-height: 2.5rem; width: fit-content; color: var(--paper); }
+.office svg { width: 1.1rem; height: 1.1rem; flex: none; color: var(--yellow); }
+@media (max-width: 479px) { .offices { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- footer ---------- */
+.footer_h { font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; color: var(--green-300); margin-bottom: .6rem; }
+.footer_credit { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; padding-top: 1.5rem; margin-top: 2rem; border-top: 1px solid rgb(255 254 252 / .14); font-size: .82rem; color: rgb(255 254 252 / .6); }
+.footer_credit p { max-width: 70ch; }

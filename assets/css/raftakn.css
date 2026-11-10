@@ -55,7 +55,8 @@ a.finder_go { text-decoration: none; }
 @media (hover: hover) and (pointer: fine) { .proj_back:hover svg { transform: rotate(-135deg) translate(15%, -15%); } }
 .proj_titles { display: flex; flex-direction: column; gap: 1rem; }
 .proj_cat { color: var(--accent); }
-.proj_h1 { color: var(--paper); overflow-wrap: break-word; hyphens: manual; font-size: min(var(--fs-h1), 3.4vw); }
+/* longest word decides the size, so a long Icelandic compound never breaks mid-word (Cabinet Bold caps ≈ .7em per letter, measured) */
+.proj_h1 { color: var(--paper); overflow-wrap: normal; hyphens: manual; font-size: min(var(--fs-h1), 3.4vw, calc(31vw / (var(--lw, 10) * .7))); }
 .proj_sub { color: var(--green-300); }
 .proj_facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
 .proj_facts dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .02em; color: var(--green-300); margin-bottom: .3rem; }
@@ -85,13 +86,13 @@ a.finder_go { text-decoration: none; }
   .proj_hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
   .proj_media { min-height: 56svh; }
   .proj_panel { padding: 2.5rem var(--margin); }
-  .proj_h1 { font-size: var(--fs-h1); }
+  .proj_h1 { font-size: min(var(--fs-h1), calc((100vw - 2 * var(--margin)) / (var(--lw, 10) * .7))); }
   .proj_text { grid-column: 1 / -1; }
   .proj_people { grid-column: 1 / -1; position: static; margin-top: 3rem; }
 }
 @media (max-width: 767px) {
   .proj_media { min-height: 48svh; }
-  .proj_h1 { font-size: 9vw; }
+  .proj_h1 { font-size: min(9vw, calc((100vw - 2 * var(--margin)) / (var(--lw, 10) * .7))); }
   .sectors { grid-template-columns: minmax(0, 1fr); }
   .sector { min-height: 2.75rem; font-size: .92rem; }
   .proj_gallery, .proj_nav { grid-template-columns: minmax(0, 1fr); }
